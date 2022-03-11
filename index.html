@@ -6,27 +6,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <link rel="stylesheet" href="style.css" />
-  <title>Guess My Number!</title>
+  <title>21 - Guess My Number!</title>
 </head>
 
 <body>
   <header>
-    <h1>Guess My Number!</h1>
-    <p class="between">(Entre <input type="number" class="between-number" id="min" value="1">e <input type="number"
-        class="between-number" id="max" value="21">)</p>
-    <button class="btn again">Novamente!</button>
+    <h1>21 - Guess My Number!</h1>
+
+    <button class="btn again">Play again!</button>
+    <label class="label-difficulty " for="difficulty">Selecione o nível de dificuldade:</label>
+    <select name="difficulty" class="difficulty">
+      <option value="Easy">Fácil</option>
+      <option value="Normal">Normal</option>
+      <option value="Hard">Difícil</option>
+      <option value="Impossible">Impossível</option>
+    </select>
     <div class="number">?</div>
   </header>
   <main>
     <section class="left">
-      <input type="number" class="guess" />
+      <input type="number" class="guess" id="guess_input" />
       <button class="btn check">Check!</button>
     </section>
     <section class="right">
       <p class="message">Comece a adivinhar...</p>
-      <p class="label-score">💯 Score: <span class="score">20</span></p>
+      <p class="between">Entre <span class="between-number" id="min">1</span> e <span class="between-number"
+          id="max">21</span></p>
+      <p class="label-score">💯 Pontos: <span class="score">21</span></p>
       <p class="label-highscore">
-        🥇 Pontuação: <span class="highscore">0</span>
+        🥇 Pontuação Máx: <span class="highscore">0</span>
       </p>
     </section>
   </main>
