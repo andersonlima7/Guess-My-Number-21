@@ -31,53 +31,53 @@ let hints = document.querySelector('.hints');
 
 
 /* Esta função retorna um número entre dois valores definidos. O valor retornado será maior ou igual a min, e menor ou igual a max. */
-function getRandomNumber(min, max) {
+const getRandomNumber = function (min, max) {
     max += 1;
     return Math.trunc(Math.random() * (max - min) + min);
 }
 
 
 // Gera um novo número secreto.
-function newSecretNumber() {
+const newSecretNumber = function () {
     secretNumber = getRandomNumber(min, max);
     document.querySelector('#max').textContent = max;
 }
 
 
 // Atualiza a pontuação.
-function updateScore(newScore) {
+const updateScore = function (newScore) {
     score = newScore;
     document.querySelector('.score').textContent = newScore;
 }
 
-function updateHighScore(newScore) {
+const updateHighScore = function (newScore) {
     highScore = newScore;
     document.querySelector('.highscore').textContent = newScore;
 }
 
 // Atualiza o número exibido no meio da tela.
-function updateNumber(newNumber) {
+const updateNumber = function (newNumber) {
     document.querySelector('.number').textContent = newNumber;
 }
 
 // Atualiza a mensagem exibida para o jogador.
-function updateMessage(newMessage) {
+const updateMessage = function (newMessage) {
     document.querySelector('.message').textContent = newMessage;
 }
 
 // Atualiza a dica exibida para o jogador.
-function updateHint(newHint) {
+const updateHint = function (newHint) {
     document.querySelector('.hint').textContent = newHint;
 }
 
 // Altera a cor de fundo da aplicação.
-function updateBackgroundColor(newColor) {
+const updateBackgroundColor = function (newColor) {
     document.body.style.backgroundColor = newColor;
     // document.body.style = 'background-color: #60B347';
 }
 
 // Ativa ou desativa as dicas
-function enableHint(yes) {
+const enableHint = function (yes) {
     if (yes)
         document.querySelector('.hint').style.display = 'block';
     else
@@ -85,7 +85,7 @@ function enableHint(yes) {
 }
 
 
-function disableHints() {
+const disableOrNotHints = function () {
     if (hints.checked) //Verifica o checkbox das dicas.
         enableHint(true);
     else
@@ -94,7 +94,7 @@ function disableHints() {
 }
 
 // Finaliza o jogo, impedindo novos palpites e revelando o número secreto.
-function endgame() {
+const endgame = function () {
     document.querySelector('#guess_input').disabled = true;
     difficulty.disabled = true;
     hints.disabled = true;
@@ -104,7 +104,7 @@ function endgame() {
 
 
 /* Determina a dificuldade da aplicação, alterando o intervalo de números possíveis a serem sorteados!*/
-function selectDifficulty() {
+const selectDifficulty = function () {
     const difficulty_value = difficulty.value;
     switch (difficulty_value) {
         case 'Easy':
@@ -140,7 +140,7 @@ function selectDifficulty() {
 }
 
 // Recomeça o jogo com a dificuldade selecionada.
-function playAgain() {
+const playAgain = function () {
     updateScore(21);
     updateNumber('?');
     selectDifficulty();
@@ -160,7 +160,7 @@ function playAgain() {
 
 // Lógica do jogo. O número palpitado é comparado com o número secreto, a pontuação e a mensagem para orientação do jogador são atualizadas.
 
-function play() {
+const play = function () {
     const guess = Number(document.querySelector('.guess').value);
     // Condições de adivinhações.
 
