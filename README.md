@@ -8,6 +8,7 @@ Projeto construído durante o curso The Complete JavaScript Course 2022: From Ze
   - Difícil.
   - Muito Díficil.
   - Impossível.
+
  Cada nível de dificuldade possui regras de jogo próprio. As regras podem ser lidas logo abaixo.
 - Dicas detalhadas para ajudar a encontrar o número.
 - Opção para jogar com ou sem dicas.
