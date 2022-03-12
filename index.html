@@ -12,6 +12,7 @@
 <body>
   <header>
     <h1>21 - Guess My Number!</h1>
+    <h2>Tente acertar o número em 21 chances!</h2>
 
     <button class="btn again">Jogar Novamente!</button>
     <label class="label-difficulty " for="difficulty">Selecione o nível de dificuldade:</label>
@@ -19,8 +20,11 @@
       <option value="Easy">Fácil</option>
       <option value="Normal">Normal</option>
       <option value="Hard">Difícil</option>
+      <option value="Very Hard">Muito difícil</option>
       <option value="Impossible">Impossível</option>
     </select>
+    <div class="div-hints">Desativar dicas: <input type="checkbox" class="hints"></div>
+    <p class="impossible"></p>
     <div class="number">?</div>
   </header>
   <main>
@@ -29,6 +33,7 @@
       <button class="btn check">Verificar!</button>
     </section>
     <section class="right">
+      <p class="hint">As dicas serão apresentadas aqui!</p>
       <p class="message">Comece a adivinhar...</p>
       <p class="between">Entre <span class="between-number" id="min">1</span> e <span class="between-number"
           id="max">21</span></p>

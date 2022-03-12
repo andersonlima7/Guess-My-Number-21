@@ -22,9 +22,11 @@ const min = 1;
 let max = 21;
 let tip_close_value = 2; //Diferença entre o número palpitado e o número sorteado para receber a dica que o valor está próximo.
 let score = 21;
+let highScore = 0;
 let secretNumber;
 
 let difficulty = document.querySelector('.difficulty');
+let hints = document.querySelector('.hints');
 
 
 
@@ -48,6 +50,11 @@ function updateScore(newScore) {
     document.querySelector('.score').textContent = newScore;
 }
 
+function updateHighScore(newScore) {
+    highScore = newScore;
+    document.querySelector('.highscore').textContent = newScore;
+}
+
 // Atualiza o número exibido no meio da tela.
 function updateNumber(newNumber) {
     document.querySelector('.number').textContent = newNumber;
@@ -58,16 +65,40 @@ function updateMessage(newMessage) {
     document.querySelector('.message').textContent = newMessage;
 }
 
+// Atualiza a dica exibida para o jogador.
+function updateHint(newHint) {
+    document.querySelector('.hint').textContent = newHint;
+}
+
 // Altera a cor de fundo da aplicação.
 function updateBackgroundColor(newColor) {
     document.body.style.backgroundColor = newColor;
     // document.body.style = 'background-color: #60B347';
 }
 
+// Ativa ou desativa as dicas
+function enableHint(yes) {
+    if (yes)
+        document.querySelector('.hint').style.display = 'block';
+    else
+        document.querySelector('.hint').style.display = 'none';
+}
+
+
+function disableHints() {
+    if (hints.checked) //Verifica o checkbox das dicas.
+        enableHint(true);
+    else
+        enableHint(false);
+
+}
+
 // Finaliza o jogo, impedindo novos palpites e revelando o número secreto.
 function endgame() {
     document.querySelector('#guess_input').disabled = true;
     difficulty.disabled = true;
+    hints.disabled = true;
+    enableHint(false);
     updateNumber(secretNumber);
 }
 
@@ -88,13 +119,22 @@ function selectDifficulty() {
             max = 105;
             tip_close_value = 8;
             break;
+        case 'Very Hard':
+            max = 999;
+            tip_close_value = 16;
+            break;
         case 'Impossible':
             max = 999;
             tip_close_value = 16;
+            enableHint(false);
+            hints.checked = true;
+            hints.disabled = true;
             break;
         default:
             max = 21;
             tip_close_value = 2;
+            enableHint(true);
+            hints.disabled = false;
             break;
     }
 }
@@ -103,13 +143,19 @@ function selectDifficulty() {
 function playAgain() {
     updateScore(21);
     updateNumber('?');
-    updateMessage('Comece a adivinhar...')
-    updateBackgroundColor('#222');
     selectDifficulty();
+    updateMessage('Comece a adivinhar...')
+    updateHint('As dicas serão apresentadas aqui!');
+    updateBackgroundColor('#222');
     newSecretNumber();
     document.querySelector('#guess_input').disabled = false;
     document.querySelector('#guess_input').value = '';
     difficulty.disabled = false;
+    if (difficulty.value != "Impossible") {
+        enableHint(true);
+        hints.disabled = false;
+    }
+
 }
 
 // Lógica do jogo. O número palpitado é comparado com o número secreto, a pontuação e a mensagem para orientação do jogador são atualizadas.
@@ -124,6 +170,9 @@ function play() {
     else if (guess === secretNumber) { // Número correto - Jogador venceu.
         updateMessage('Número Correto!');
         updateBackgroundColor('#60B347');
+        if (score > highScore) {
+            updateHighScore(score);
+        }
         endgame();
     }
 
@@ -131,16 +180,16 @@ function play() {
         if (score > 1) {
             if (guess > secretNumber) { // Palpite acima do número correto.
                 if (guess - secretNumber > tip_close_value)
-                    updateMessage('Muito alto!');
+                    updateHint('Muito alto!');
                 else if (guess - secretNumber <= tip_close_value)
-                    updateMessage('Você está próximo!');
+                    updateHint('Você está próximo!');
             }
 
             else if (guess < secretNumber) { // Palpite abaixo do número correto.
                 if (secretNumber - guess > tip_close_value)
-                    updateMessage('Muito Baixo!');
+                    updateHint('Muito Baixo!');
                 else if (secretNumber - guess <= tip_close_value)
-                    updateMessage('Você está próximo!');
+                    updateHint('Você está próximo!');
             }
             updateScore(score - 1); //Diminui a pontuação do jogador.
         }
@@ -153,9 +202,15 @@ function play() {
     }
 }
 
+newSecretNumber();
+
 // Ao alterar a dificuldade o jogo recomeça.
 difficulty.addEventListener('change', function () {
     playAgain();
+});
+
+hints.addEventListener('click', function () {
+    disableHints();
 });
 
 // Ao clicar em Jogar Novamente o jogo recomeça.
@@ -163,7 +218,7 @@ document.querySelector('.again').addEventListener('click', function () {
     playAgain();
 });
 
-// Ao clicar em verificar, o número digitado é comparado com o sorteado.
+// Ao clicar em verificar, o número digitado é comparado com o sorteazdo.
 document.querySelector('.check').addEventListener('click', function () {
     play();
 });
